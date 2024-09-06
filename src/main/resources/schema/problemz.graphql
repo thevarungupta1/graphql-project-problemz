@@ -1,0 +1,98 @@
+type User{
+    id: ID!
+    username: String!
+    email: String!
+    displayName: String
+    problems: [Problem!]
+}
+
+type Problem implements SearchableItem{
+    id: ID!
+    title: String!
+    content: String!
+    tags: [String!]!
+    author: User!
+    solutions: [Solution!]
+}
+
+type Solution implements SearchableItem{
+    id: ID!
+    content: String!
+    category: SolutionCategory!
+    author: User!
+}
+
+enum SolutionCategory{
+    EXPLANATION
+    REFERENCE
+}
+
+interface SearchableItem{
+    id: ID!
+    content: String!
+    author: User!
+}
+
+
+input SearchItemFilter{
+    keyword: String
+}
+
+input UserCreateInput{
+    username: String!
+    email: String!
+    password: String!
+    displayName: String
+}
+
+input UserLoginInput{
+    username: String!
+    password: String!
+}
+
+input ProblemCreateInput{
+    title: String!
+    content: String!
+    tags: [String!]!
+}
+
+input SolutionCreateInput{
+    content: String!
+    category: SolutionCategory!
+    problemId: ID!
+}
+
+type UserAuthToken{
+    authToken: String!
+}
+
+type UserResponse{
+    user: User
+    authToken: UserAuthToken
+}
+
+type ProblemResponse{
+    problem: Problem
+}
+
+type SolutionResponse{
+    solution: Solution
+}
+
+type Query{
+    me: User!
+    problemLatestList: [Problem!]
+    problemDetail(id: ID!): Problem!
+    itemSearch(filter: SearchItemFilter): [SearchableItem]
+}
+
+type Mutation{
+    createUser(user: UserCreateInput!): UserResponse!
+    userLogin(user: UserLoginInput!): UserResponse!
+    problemCreate(problem: ProblemCreateInput!): ProblemResponse!
+    solutionCreate(solution: SolutionCreateInput!): SolutionResponse!
+}
+
+
+
+
