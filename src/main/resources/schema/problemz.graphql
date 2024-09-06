@@ -87,7 +87,7 @@ type Query{
 }
 
 type Mutation{
-    createUser(user: UserCreateInput!): UserResponse!
+    createUser(user: UserCreateInput): UserResponse
     userLogin(user: UserLoginInput!): UserResponse!
     problemCreate(problem: ProblemCreateInput!): ProblemResponse!
     solutionCreate(solution: SolutionCreateInput!): SolutionResponse!
