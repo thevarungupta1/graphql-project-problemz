@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -17,15 +16,15 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table(
-        name = "users"
+        name = "users_tokens"
 )
-public class Userz {
+public class UserzToken {
     @Id
-    private UUID id;
-    private String username;
-    private String email;
-    private String hashedPassword;
-    private String displayName;
-    private boolean active;
-    private String userRole;
+    private UUID userId;
+    private String authToken;
+
+    @CreationTimestamp
+    private LocalDateTime creationTimestamp;
+
+    private LocalDateTime expirationTimestamp;
 }
